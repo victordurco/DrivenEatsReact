@@ -1,11 +1,23 @@
 import DessertsData from "../../data/DessertsData";
 import DishesData from '../../data/DishesData';
 import DrinksData from "../../data/DrinksData";
+import React from 'react';
 
-const Option = (props) => {
-    const {title, description, img, price} = props;
+
+const Option = ({ title, description, img, price, isSelected }) => {
+
+    const [ classes, setClasses] = React.useState("option sub-font");
+
+    function selectItem() {
+        if (classes === "option sub-font") {
+          setClasses("option sub-font selected");
+        } else {
+          setClasses("option sub-font");
+        }
+      }
+
     return(
-        <li className="option sub-font" onclick="#">
+        <li className={classes} onClick={()=>selectItem()}>
             <img className="option-pic" src={img} alt={title}/>
             <img className="check" src="img/check.png" alt="item selected"/>
             <p className="option-title  black">{title}</p>
@@ -15,9 +27,8 @@ const Option = (props) => {
     );
 }
 
-export default function OptionsBox(props){
+export default function OptionsBox({category}){
     let items =[];
-    const {category} = props;
     switch (category){
         case 'desserts':
             items = DessertsData();
@@ -29,6 +40,8 @@ export default function OptionsBox(props){
             items = DishesData();
             break;
     }
+
+
     return(
         <ul className="options">
             {items.map((item,index)=> <Option 
@@ -37,6 +50,7 @@ export default function OptionsBox(props){
                 description={item.description}
                 img={item.img}
                 price={item.price}
+                isSelected={item.isSelected}
             />)}
         </ul>
     );

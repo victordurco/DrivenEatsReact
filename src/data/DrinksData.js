@@ -4,31 +4,36 @@ export default function DrinksData(){
             title: 'Coquinha gelada',
             description: 'Lata 350ml',
             img: './img/coquinha_gelada 1.png',
-            price: '7,00'
+            price: '7,00',
+            isSelected: false
         },
         {
             title: 'Suco de Laranja',
             description: 'Copo 400ml',
             img: './img/Suco-de-Laranja.jpg',
-            price: '4,90'
+            price: '4,90',
+            isSelected: false
         },
         {
             title: 'Água mineral',
             description: 'Garrafa 500ml',
             img: './img/agua.jpg',
-            price: '3,00'
+            price: '3,00',
+            isSelected: false
         },
         {
             title: 'Cerveja gelada',
             description: 'Lata 350ml',
             img: './img/cervejagelada.jpg',
-            price: '5,00'
+            price: '5,00',
+            isSelected: false
         },
         {
             title: 'Suco de melancia',
             description: 'copo 350ml',
             img: './img/suco-melancia.jpeg',
-            price: '5,90'
+            price: '5,90',
+            isSelected: false
         },
     ];
     return (drinks_data);
