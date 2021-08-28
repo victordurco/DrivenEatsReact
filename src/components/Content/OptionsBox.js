@@ -2,6 +2,8 @@ import DessertsData from "../../data/DessertsData";
 import DishesData from '../../data/DishesData';
 import DrinksData from "../../data/DrinksData";
 import React from 'react';
+import {setArrayPointers, isOrderEneable} from './validations';
+ 
 
 
 const Option = ({ title, description, img, price, setQuantityInData, index}) => {
@@ -9,10 +11,12 @@ const Option = ({ title, description, img, price, setQuantityInData, index}) => 
     const [ classes, setClasses] = React.useState("option sub-font");
     const [printQuantity, setPrintQuantity] = React.useState(1);
 
+    //EVENTS ON OPTION
     function selectItem() {
         if (classes === "option sub-font") {
             setPrintQuantity(setQuantityInData(1, index));
             setClasses("option sub-font selected");
+            isOrderEneable();
         }
       }
     
@@ -23,11 +27,13 @@ const Option = ({ title, description, img, price, setQuantityInData, index}) => 
     function plusItem(e){
         setPrintQuantity(setQuantityInData(1, index));
         e.stopPropagation();
+        isOrderEneable();
     }
 
     function minusItem(e){
         setPrintQuantity(setQuantityInData(-1, index));
         e.stopPropagation();
+        isOrderEneable();
         if (printQuantity-1===0){
             deselectItem();
         }
@@ -49,18 +55,20 @@ export default function OptionsBox({category}){
     switch (category){
         case 'desserts':
             items = DessertsData();
+            setArrayPointers('desserts', items);
             break;
         case 'drinks':
             items = DrinksData();
+            setArrayPointers('drinks', items);
             break;
         case 'dishes':
             items = DishesData();
+            setArrayPointers('dishes', items);
             break;
     }
 
     function setQuantityInData(n, i){
         items[i].quantity += n;
-        console.log(items);
         return items[i].quantity;
     }
 
