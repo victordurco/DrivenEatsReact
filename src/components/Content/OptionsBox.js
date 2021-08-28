@@ -4,22 +4,35 @@ import DrinksData from "../../data/DrinksData";
 import React from 'react';
 
 
-const Option = ({ title, description, img, price, isSelected }) => {
+const Option = ({ title, description, img, price, quantity, setQuantityInData, index}) => {
 
     const [ classes, setClasses] = React.useState("option sub-font");
+    const [printQuantity, setPrintQuantity] = React.useState(1);
 
     function selectItem() {
-        if (classes === "option sub-font") {
-          setClasses("option sub-font selected");
-        } else {
-          setClasses("option sub-font");
+        if (quantity === 0) {
+            setPrintQuantity(setQuantityInData(1, index));
+            setClasses("option sub-font selected");
         }
       }
+
+    function plusItem(e){
+        setPrintQuantity(setQuantityInData(1, index));
+        e.stopPropagation();
+    }
+
+    function minusItem(e){
+        setPrintQuantity(setQuantityInData(-1, index));
+        e.stopPropagation();
+        if (printQuantity-1===0){
+            setClasses("option sub-font");
+        }
+    }
 
     return(
         <li className={classes} onClick={()=>selectItem()}>
             <img className="option-pic" src={img} alt={title}/>
-            <img className="check" src="img/check.png" alt="item selected"/>
+            <div className="itemAmount"><button onClick={(e)=>minusItem(e)}>-</button>{printQuantity}<button onClick={(e)=>plusItem(e)}>+</button></div>
             <p className="option-title  black">{title}</p>
             <p className="option-description  cinza">{description}</p>
             <span>R$ <span className="option-price">{price}</span></span>
@@ -41,6 +54,11 @@ export default function OptionsBox({category}){
             break;
     }
 
+    function setQuantityInData(n, i){
+        items[i].quantity += n;
+        console.log(items);
+        return items[i].quantity;
+    }
 
     return(
         <ul className="options">
@@ -50,7 +68,9 @@ export default function OptionsBox({category}){
                 description={item.description}
                 img={item.img}
                 price={item.price}
-                isSelected={item.isSelected}
+                quantity={item.quantity}
+                setQuantityInData={setQuantityInData}
+                index={index}
             />)}
         </ul>
     );
