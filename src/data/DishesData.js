@@ -1,4 +1,4 @@
-export default function Dishes(){
+export default function DishesData(){
     const dishes_data = [
         {
             title: 'Frango Yin Yang',

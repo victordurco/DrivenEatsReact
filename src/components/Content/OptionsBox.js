@@ -4,17 +4,21 @@ import DrinksData from "../../data/DrinksData";
 import React from 'react';
 
 
-const Option = ({ title, description, img, price, quantity, setQuantityInData, index}) => {
+const Option = ({ title, description, img, price, setQuantityInData, index}) => {
 
     const [ classes, setClasses] = React.useState("option sub-font");
     const [printQuantity, setPrintQuantity] = React.useState(1);
 
     function selectItem() {
-        if (quantity === 0) {
+        if (classes === "option sub-font") {
             setPrintQuantity(setQuantityInData(1, index));
             setClasses("option sub-font selected");
         }
       }
+    
+    function deselectItem(){
+        setClasses("option sub-font");
+    }
 
     function plusItem(e){
         setPrintQuantity(setQuantityInData(1, index));
@@ -25,7 +29,7 @@ const Option = ({ title, description, img, price, quantity, setQuantityInData, i
         setPrintQuantity(setQuantityInData(-1, index));
         e.stopPropagation();
         if (printQuantity-1===0){
-            setClasses("option sub-font");
+            deselectItem();
         }
     }
 
@@ -68,7 +72,6 @@ export default function OptionsBox({category}){
                 description={item.description}
                 img={item.img}
                 price={item.price}
-                quantity={item.quantity}
                 setQuantityInData={setQuantityInData}
                 index={index}
             />)}
