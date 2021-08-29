@@ -25,14 +25,14 @@ const Option = ({ title, description, img, price, setQuantityInData, isOrderEnea
 
     function plusItem(e){
         setPrintQuantity(setQuantityInData(1, index));
-        e.stopPropagation();
         isOrderEneable();
+        e.stopPropagation();
     }
 
     function minusItem(e){
         setPrintQuantity(setQuantityInData(-1, index));
-        e.stopPropagation();
         isOrderEneable();
+        e.stopPropagation();
         if (printQuantity-1===0){
             deselectItem();
         }
@@ -68,21 +68,24 @@ export default function OptionsRow({category, setArrayPointers, isOrderEneable})
 
     function setQuantityInData(n, i){
         items[i].quantity += n;
+        console.log(items[i]);
         return items[i].quantity;
     }
 
     return(
         <ul className="options">
-            {items.map((item,index)=> <Option 
-                key = {index}
-                title={item.title}
-                description={item.description}
-                img={item.img}
-                price={item.price}
-                setQuantityInData={setQuantityInData}
-                isOrderEneable={isOrderEneable}
-                index={index}
-            />)}
+            {items.map((item,index)=> 
+                <Option 
+                    key = {index}
+                    title={item.title}
+                    description={item.description}
+                    img={item.img}
+                    price={item.price}
+                    setQuantityInData={setQuantityInData}
+                    isOrderEneable={isOrderEneable}
+                    index={index}
+                />
+            )}
         </ul>
     );
 }
