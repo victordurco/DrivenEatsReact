@@ -1,9 +1,14 @@
-import OptionsBox from "./OptionsBox";
+import OptionsRow from "./OptionsRow";
 
-export default function Drinks(){
+export default function Drinks({setArrayPointers, isOrderEneable}){
     return(
         <div className="category-container drinks">
-            <OptionsBox category='drinks' />
+            <OptionsRow 
+                category='drinks'
+                setArrayPointers={setArrayPointers}
+                isOrderEneable={isOrderEneable}
+             />
+            
         </div>
     );
 }

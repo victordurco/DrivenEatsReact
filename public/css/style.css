@@ -143,6 +143,7 @@ body{
 }
 
 .close-order {
+    padding: 0 70px;
     Width: 364px;
     Height: 61px;
     font-size: 20px;

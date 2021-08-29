@@ -2,17 +2,26 @@ import Desserts from "./Desserts";
 import Dishes from "./Dishes";
 import Drinks from "./Drinks";
 
-export default function Content(){
+export default function Content({setArrayPointers, isOrderEneable}){
     return (
     <div className="content">   
         <p className="div-title main-font black">Primeiro, seu prato</p>
-        <Dishes />
+        <Dishes 
+            setArrayPointers={setArrayPointers} 
+            isOrderEneable={isOrderEneable}
+        />
 
         <p className="div-title main-font black">Agora, sua bebida</p>
-        <Drinks />
+        <Drinks 
+            setArrayPointers={setArrayPointers} 
+            isOrderEneable={isOrderEneable}
+        />
 
         <p className="div-title main-font black">Por fim, sua sobremesa</p>
-        <Desserts />
+        <Desserts 
+            setArrayPointers={setArrayPointers} 
+            isOrderEneable={isOrderEneable}
+        />
     </div> 
     );
 }

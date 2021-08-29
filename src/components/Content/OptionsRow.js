@@ -2,11 +2,10 @@ import DessertsData from "../../data/DessertsData";
 import DishesData from '../../data/DishesData';
 import DrinksData from "../../data/DrinksData";
 import React from 'react';
-import {setArrayPointers, isOrderEneable} from './validations';
  
 
 
-const Option = ({ title, description, img, price, setQuantityInData, index}) => {
+const Option = ({ title, description, img, price, setQuantityInData, isOrderEneable, index}) => {
 
     const [ classes, setClasses] = React.useState("option sub-font");
     const [printQuantity, setPrintQuantity] = React.useState(1);
@@ -50,7 +49,7 @@ const Option = ({ title, description, img, price, setQuantityInData, index}) => 
     );
 }
 
-export default function OptionsBox({category}){
+export default function OptionsRow({category, setArrayPointers, isOrderEneable}){
     let items =[];
     switch (category){
         case 'desserts':
@@ -81,6 +80,7 @@ export default function OptionsBox({category}){
                 img={item.img}
                 price={item.price}
                 setQuantityInData={setQuantityInData}
+                isOrderEneable={isOrderEneable}
                 index={index}
             />)}
         </ul>
