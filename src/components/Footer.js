@@ -31,7 +31,9 @@ export default function Footer({buttonShouldBeEneable}){
                 break;
             case false:
                 desableOrderButton();
-                break;        
+                break;   
+            default:
+                break;     
         }
       });
 
