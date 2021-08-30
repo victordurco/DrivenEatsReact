@@ -1,15 +1,17 @@
-import React from "react";
+import {useState} from "react";
+import { Link } from 'react-router-dom';
 
-export default function Footer({buttonShouldBeEneable, sendMsg}){
-    const [buttonContent, setButtonContent] = React.useState('Selecione os 3 itens para fechar o pedido');
-    const [eneableClass, setEneableClass] = React.useState('');
-    const [buttonFunction, setButtonFunction] = React.useState('');
+export default function Footer({buttonShouldBeEneable}){
+    const [buttonContent, setButtonContent] = useState('Selecione os 3 itens para fechar o pedido');
+    const [eneableClass, setEneableClass] = useState('');
+    const [disableLink, setDisableLink] = useState('disableLink');
 
  
     function eneableOrderButton(){
         if (eneableClass === ''){
             setEneableClass('activate-button');
             setButtonContent('Fechar pedido');
+            setDisableLink('');
         }
     }
 
@@ -17,13 +19,10 @@ export default function Footer({buttonShouldBeEneable, sendMsg}){
         if (eneableClass === 'activate-button'){
             setEneableClass('');
             setButtonContent('Selecione os 3 itens para fechar o pedido');
+            setDisableLink('disableLink');
         }
     }
 
-    function setButtonOnClick(status){
-        if(status)
-            sendMsg();
-    }
 
     buttonShouldBeEneable.registerListener(function(val) {
         switch(val){
@@ -38,12 +37,13 @@ export default function Footer({buttonShouldBeEneable, sendMsg}){
 
     return(
         <div className="bottom-bar">
-            <button 
-                className={`close-order sub-font white ${eneableClass}`}
-                onClick={()=>setButtonOnClick(buttonShouldBeEneable.a)}
-            >
-                {buttonContent}
-            </button>
+            <Link to='/confirm-order' className={disableLink}>
+                <button 
+                    className={`close-order sub-font white ${eneableClass}`}
+                >
+                    {buttonContent}
+                </button>
+            </Link>
         </div>
     );
 }

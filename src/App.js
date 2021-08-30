@@ -1,7 +1,14 @@
 import Header from './components/Header'
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer";
-import React from 'react';
+import ConfirmOrder from './components/ConfirmOrder/ConfirmOrder';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+  
 
 
 export default function App(){
@@ -22,6 +29,7 @@ export default function App(){
           this.aListener = listener;
         }
       }
+      
     
     function setArrayPointers(category, array){
         switch(category){
@@ -43,84 +51,44 @@ export default function App(){
         drinkOrder = drinksPointer.filter((drink)=> drink.quantity > 0);
         dessertOrder = dessertsPointer.filter((dessert)=> dessert.quantity > 0);
 
-        if(dishOrder.length>0 && drinkOrder.length>0 && dessertOrder.length>0)
-           buttonShouldBeEneable.a = true;
+        if(dishOrder.length>0 && drinkOrder.length>0 && dessertOrder.length>0){
+            buttonShouldBeEneable.a = true;
+           localStorage.setItem("dishOrder", JSON.stringify(dishOrder));
+           localStorage.setItem("drinkOrder", JSON.stringify(drinkOrder));
+           localStorage.setItem("dessertOrder", JSON.stringify(dessertOrder));
+        }
         else    
             buttonShouldBeEneable.a = false;
     }
 
-    function createMsg(){
-        let total=0;
-        function createMsgDishes(){
-            let msgDishes = '- Prato: ';
-            dishOrder.forEach((dish)=>{
-                if(dish.quantity > 1){ 
-                    msgDishes+=`${dish.title}(${dish.quantity}x) `;
-                    total+=parseFloat(dish.price.replace(',', '.'));
-                }
-                else{ 
-                    msgDishes+=`${dish.title} `;
-                    total+=parseFloat(dish.price.replace(',', '.'));
-                }
-                });
-            return msgDishes;
-        }
 
-        function createMsgDrinks(){
-            let msgDrinks = '- Prato: ';
-            drinkOrder.forEach((drink)=>{
-                if(drink.quantity > 1){
-                    msgDrinks+=`${drink.title}(${drink.quantity}x) `;
-                    total+=parseFloat(drink.price.replace(',', '.'));
-                }
-                else{ 
-                    msgDrinks+=`${drink.title} `;
-                    total+=parseFloat(drink.price.replace(',', '.'));
-                }
-                });
-            return msgDrinks;
-        }
-
-        function createMsgDesserts(){
-            let msgDesserts = '- Prato: ';
-            dessertOrder.forEach((dessert)=>{
-                if(dessert.quantity > 1){
-                    msgDesserts+=`${dessert.title}(${dessert.quantity}x) `;
-                    total+=parseFloat(dessert.price.replace(',', '.'));
-                }
-                else{
-                    msgDesserts+=`${dessert.title} `;
-                    total+=parseFloat(dessert.price.replace(',', '.'));
-                }
-                });
-            return msgDesserts;
-        }
-
-        let msg = `Olá, gostaria de fazer o pedido: \n ${createMsgDishes()} \n ${createMsgDrinks()} \n  ${createMsgDesserts()} \n Total: R$ ${total.toFixed(2)}`;
-
-        return msg;
-    }
-
-    function sendMsg(){
-        let encodedMsg = encodeURI(createMsg());
-        let uri = "https://wa.me/5514998375261?text=";
-        uri = uri+encodedMsg;
-        window.open(uri);
-    }
-    
 
 
     return(
-        <>
+        <Router>
             <Header />
-            <Content 
-                setArrayPointers={setArrayPointers} 
-                isOrderEneable={isOrderEneable}
-            />
-            <Footer 
-                buttonShouldBeEneable={buttonShouldBeEneable}
-                sendMsg={sendMsg}
-            />
-        </>
+            <Switch>
+                <Route path="/" exact>
+ 
+                    <Content 
+                        setArrayPointers={setArrayPointers} 
+                        isOrderEneable={isOrderEneable}
+                    />
+                    <Footer 
+                        buttonShouldBeEneable={buttonShouldBeEneable}
+                    />
+                </Route>
+                <Route path="/confirm-order">
+                    <ConfirmOrder 
+                        dishOrder={dishOrder}
+                        drinkOrder={drinkOrder}
+                        dessertOrder={dessertOrder}
+                    />
+                </Route>
+            </Switch>
+              
+
+            
+        </Router>
     );
 }

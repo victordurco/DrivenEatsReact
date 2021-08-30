@@ -1,14 +1,14 @@
 import DessertsData from "../../data/DessertsData";
 import DishesData from '../../data/DishesData';
 import DrinksData from "../../data/DrinksData";
-import React from 'react';
+import {useState} from 'react';
  
 
 
 const Option = ({ title, description, img, price, setQuantityInData, isOrderEneable, index}) => {
 
-    const [ classes, setClasses] = React.useState("option sub-font");
-    const [printQuantity, setPrintQuantity] = React.useState(1);
+    const [ classes, setClasses] = useState("option sub-font");
+    const [printQuantity, setPrintQuantity] = useState(1);
 
     //EVENTS ON OPTION
     function selectItem() {
