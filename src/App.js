@@ -7,10 +7,22 @@ import React from 'react';
 export default function App(){
     //VALIDATION FUNCTIONS
     let dishesPointer, drinksPointer, dessertsPointer= [];
-    const [buttonContent, setButtonContent] = React.useState('Selecione os 3 itens para fechar o pedido');
-    const [eneableClass, setEneableClass] = React.useState('');
-
-
+    let dishOrder, drinkOrder, dessertOrder = [];
+    let buttonShouldBeEneable = { //object with event listener so footer can know when to update
+        aInternal: false,
+        aListener: function(val) {},
+        set a(val) {
+          this.aInternal = val;
+          this.aListener(val);
+        },
+        get a() {
+          return this.aInternal;
+        },
+        registerListener: function(listener) {
+          this.aListener = listener;
+        }
+      }
+    
     function setArrayPointers(category, array){
         switch(category){
             case 'dishes':
@@ -26,31 +38,45 @@ export default function App(){
 
     }
 
-    function eneableOrderButton(){
-        if (eneableClass === ''){
-            setEneableClass('activate-button');
-            setButtonContent('Fechar pedido');
-        }
-    }
-
-    function desableOrderButton(){
-        if (eneableClass === 'activate-button'){
-            setEneableClass('');
-            setButtonContent('Selecione os 3 itens para fechar o pedido');
-        }
-    }
-
     function isOrderEneable(){
-        let dishOrder = dishesPointer.filter((dish)=> dish.quantity > 0);
-        let drinkOrder = drinksPointer.filter((drink)=> drink.quantity > 0);
-        let dessertOrder = dessertsPointer.filter((dessert)=> dessert.quantity > 0);
+        dishOrder = dishesPointer.filter((dish)=> dish.quantity > 0);
+        drinkOrder = drinksPointer.filter((drink)=> drink.quantity > 0);
+        dessertOrder = dessertsPointer.filter((dessert)=> dessert.quantity > 0);
 
         if(dishOrder.length>0 && drinkOrder.length>0 && dessertOrder.length>0)
-           eneableOrderButton();
+           buttonShouldBeEneable.a = true;
         else    
-            desableOrderButton();
+            buttonShouldBeEneable.a = false;
     }
 
+    function createMsg(){
+        let msg = 'Olá, gostaria de fazer o pedido: \n';
+
+        function createMsgDishes(){
+            let msgDishes = '- Prato: ';
+            dishOrder.forEach((dish)=>{
+                if(dish.quantity > 1)
+                    msgDishes+=`${dish.title}(${dish.quantity}x) `;
+                else        
+                    msgDishes+=`${dish.title} `
+                });
+            return msgDishes;
+        }
+
+        function createMsgDrinks(){
+            let msgDrinks = '- Prato: ';
+            drinkOrder.forEach((drink)=>{
+                if(drink.quantity > 1)
+                    msgDrinks+=`${drink.title}(${drink.quantity}x) `;
+                else        
+                    msgDrinks+=`${drink.title} `
+                });
+            return msgDrinks;
+        }
+
+
+        let msg = `Olá, gostaria de fazer o pedido: \n - Prato: Frango Yin Yang (2x) \n - Bebida: Coquinha Gelada \n  - Sobremesa: Pudim \n Total: R$ 27.70`
+    }
     
 
 
@@ -62,8 +88,7 @@ export default function App(){
                 isOrderEneable={isOrderEneable}
             />
             <Footer 
-                buttonContent={buttonContent}
-                eneableClass={eneableClass}
+                buttonShouldBeEneable={buttonShouldBeEneable}
             />
         </>
     );
