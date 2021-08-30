@@ -2,6 +2,8 @@ import Header from './components/Header'
 import Content from "./components/Content/Content";
 import Footer from "./components/Footer";
 import ConfirmOrder from './components/ConfirmOrder/ConfirmOrder';
+import './css/reset.css';
+import './css/style.css';
 import {
     BrowserRouter as Router,
     Switch,

@@ -111,6 +111,8 @@ export default function ConfirmOrder(){
                 <div className="confirmButtons subfont">
                     <Link to='/'>
                         <button className="confirmButton" onClick={()=>sendMsg()}>Tudo certo, pode pedir!</button>
+                    </Link>
+                    <Link to='/'>
                         <button className="cancelButton" >Cancelar</button>
                     </Link>
                 </div>

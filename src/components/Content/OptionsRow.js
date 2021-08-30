@@ -68,7 +68,6 @@ export default function OptionsRow({category, setArrayPointers, isOrderEneable})
 
     function setQuantityInData(n, i){
         items[i].quantity += n;
-        console.log(items[i]);
         return items[i].quantity;
     }
 

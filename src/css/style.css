@@ -199,37 +199,6 @@ body{
     justify-content: space-between;
 }
 
-.confirmButtons{
-    display: flex;
-    flex-direction: column;
-    font-family: inherit;
-    height: 104px;
-}
-
-.confirm{
-    border: none;
-    width: 329px;
-    height: 52px;
-    background-color: #ffff;
-    font-size: 22px;
-    font-weight: 700;
-    font-family: inherit;
-    color: #50D074;
-    border-radius: 100px;
-}
-
-.cancel{
-    border: none;
-    margin-top: 3px;
-    width: 329px;
-    height: 52;
-    background-color: inherit;
-    font-size: 20px;
-    line-height: 25,78px;
-    font-weight: 700;
-    font-family: inherit;
-    color: inherit;
-}
 
 .msg-order{
     display: none;
