@@ -64,6 +64,8 @@ export default function OptionsRow({category, setArrayPointers, isOrderEneable})
             items = DishesData();
             setArrayPointers('dishes', items);
             break;
+        default:
+            break;
     }
 
     function setQuantityInData(n, i){
