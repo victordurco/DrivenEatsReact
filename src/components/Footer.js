@@ -1,9 +1,9 @@
 import React from "react";
 
-export default function Footer({buttonShouldBeEneable}){
+export default function Footer({buttonShouldBeEneable, sendMsg}){
     const [buttonContent, setButtonContent] = React.useState('Selecione os 3 itens para fechar o pedido');
     const [eneableClass, setEneableClass] = React.useState('');
-  
+    const [buttonFunction, setButtonFunction] = React.useState('');
 
  
     function eneableOrderButton(){
@@ -18,6 +18,11 @@ export default function Footer({buttonShouldBeEneable}){
             setEneableClass('');
             setButtonContent('Selecione os 3 itens para fechar o pedido');
         }
+    }
+
+    function setButtonOnClick(status){
+        if(status)
+            sendMsg();
     }
 
     buttonShouldBeEneable.registerListener(function(val) {
@@ -35,7 +40,7 @@ export default function Footer({buttonShouldBeEneable}){
         <div className="bottom-bar">
             <button 
                 className={`close-order sub-font white ${eneableClass}`}
-                onClick=''
+                onClick={()=>setButtonOnClick(buttonShouldBeEneable.a)}
             >
                 {buttonContent}
             </button>

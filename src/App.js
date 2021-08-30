@@ -50,15 +50,18 @@ export default function App(){
     }
 
     function createMsg(){
-        let msg = 'Olá, gostaria de fazer o pedido: \n';
-
+        let total=0;
         function createMsgDishes(){
             let msgDishes = '- Prato: ';
             dishOrder.forEach((dish)=>{
-                if(dish.quantity > 1)
+                if(dish.quantity > 1){ 
                     msgDishes+=`${dish.title}(${dish.quantity}x) `;
-                else        
-                    msgDishes+=`${dish.title} `
+                    total+=parseFloat(dish.price.replace(',', '.'));
+                }
+                else{ 
+                    msgDishes+=`${dish.title} `;
+                    total+=parseFloat(dish.price.replace(',', '.'));
+                }
                 });
             return msgDishes;
         }
@@ -66,16 +69,43 @@ export default function App(){
         function createMsgDrinks(){
             let msgDrinks = '- Prato: ';
             drinkOrder.forEach((drink)=>{
-                if(drink.quantity > 1)
+                if(drink.quantity > 1){
                     msgDrinks+=`${drink.title}(${drink.quantity}x) `;
-                else        
-                    msgDrinks+=`${drink.title} `
+                    total+=parseFloat(drink.price.replace(',', '.'));
+                }
+                else{ 
+                    msgDrinks+=`${drink.title} `;
+                    total+=parseFloat(drink.price.replace(',', '.'));
+                }
                 });
             return msgDrinks;
         }
 
+        function createMsgDesserts(){
+            let msgDesserts = '- Prato: ';
+            dessertOrder.forEach((dessert)=>{
+                if(dessert.quantity > 1){
+                    msgDesserts+=`${dessert.title}(${dessert.quantity}x) `;
+                    total+=parseFloat(dessert.price.replace(',', '.'));
+                }
+                else{
+                    msgDesserts+=`${dessert.title} `;
+                    total+=parseFloat(dessert.price.replace(',', '.'));
+                }
+                });
+            return msgDesserts;
+        }
 
-        let msg = `Olá, gostaria de fazer o pedido: \n - Prato: Frango Yin Yang (2x) \n - Bebida: Coquinha Gelada \n  - Sobremesa: Pudim \n Total: R$ 27.70`
+        let msg = `Olá, gostaria de fazer o pedido: \n ${createMsgDishes()} \n ${createMsgDrinks()} \n  ${createMsgDesserts()} \n Total: R$ ${total.toFixed(2)}`;
+
+        return msg;
+    }
+
+    function sendMsg(){
+        let encodedMsg = encodeURI(createMsg());
+        let uri = "https://wa.me/5514998375261?text=";
+        uri = uri+encodedMsg;
+        window.open(uri);
     }
     
 
@@ -89,6 +119,7 @@ export default function App(){
             />
             <Footer 
                 buttonShouldBeEneable={buttonShouldBeEneable}
+                sendMsg={sendMsg}
             />
         </>
     );
